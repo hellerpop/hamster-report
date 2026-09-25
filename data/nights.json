@@ -1,13 +1,13 @@
 [
  {
   "night": "2026-09-24",
-  "complete": false,
-  "klacks": 1,
+  "complete": true,
+  "klacks": 774,
   "first": "2026-09-24T09:07:52+02:00",
-  "last": "2026-09-24T09:07:52+02:00",
-  "blocks": 1,
-  "active_minutes": 0.0,
-  "coverage_minutes": 262,
+  "last": "2026-09-25T07:45:46+02:00",
+  "blocks": 4,
+  "active_minutes": 215.0,
+  "coverage_minutes": 1438,
   "night_minutes": 1440
  },
  {
