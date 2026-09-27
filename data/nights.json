@@ -1,5 +1,16 @@
 [
  {
+  "night": "2026-09-26",
+  "complete": true,
+  "klacks": 21,
+  "first": "2026-09-27T04:11:51+02:00",
+  "last": "2026-09-27T04:37:58+02:00",
+  "blocks": 1,
+  "active_minutes": 26.1,
+  "coverage_minutes": 1427,
+  "night_minutes": 1440
+ },
+ {
   "night": "2026-09-25",
   "complete": true,
   "klacks": 284,
