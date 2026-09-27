@@ -9,6 +9,8 @@
   "last": "2026-09-27T06:28:38+02:00",
   "longest_run_minutes": 76.8,
   "coverage_minutes": 652,
-  "night_minutes": 1440
+  "night_minutes": 1440,
+  "distance_km": 5.74,
+  "speed_kmh": 2.91
  }
 ]
