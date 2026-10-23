@@ -1,5 +1,20 @@
 [
  {
+  "night": "2026-10-22",
+  "complete": true,
+  "rad_minutes": 133.5,
+  "wuehlen_minutes": 20.8,
+  "runs": 4,
+  "first": "2026-10-22T21:39:21+02:00",
+  "last": "2026-10-23T06:20:49+02:00",
+  "longest_run_minutes": 90.4,
+  "coverage_minutes": 1440,
+  "night_minutes": 1440,
+  "distance_km": 6.45,
+  "speed_kmh": 2.91,
+  "drum_salvos": 1
+ },
+ {
   "night": "2026-10-21",
   "complete": true,
   "rad_minutes": 45.5,
