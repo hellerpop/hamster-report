@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hamstis Nacht</title>
+<title>Mimis Nacht</title>
 <link rel="icon" href="data:,">
 <style>
 :root {
@@ -203,7 +203,7 @@ footer { margin-top: 18px; font-size: 12px; color: var(--ink2); }
 <body>
 <main>
 <header>
-  <h1>🐹 Hamstis Nacht <small id="untertitel"></small></h1>
+  <h1>🐹 Mimis Nacht <small id="untertitel"></small></h1>
   <div class="oben">
     <nav class="ansicht" aria-label="Ansicht">
       <button data-ansicht="nacht" aria-pressed="true">🎬 Nacht</button>
@@ -217,12 +217,12 @@ footer { margin-top: 18px; font-size: 12px; color: var(--ink2); }
 <nav class="naechte" id="naechte" aria-label="Nacht auswählen"></nav>
 
 <div class="buehne" id="buehne">
-  <canvas id="szene" aria-label="Terrarium mit Hamsti"></canvas>
+  <canvas id="szene" aria-label="Terrarium mit Mimi"></canvas>
   <div class="uhr" id="uhr">🌙 21:00</div>
   <div class="status" id="status"></div>
   <div class="rekordbanner" id="rekord" role="status" hidden></div>
   <div class="overlay" id="start">
-    <p id="starttext">Was hat Hamsti heute Nacht gemacht?</p>
+    <p id="starttext">Was hat Mimi heute Nacht gemacht?</p>
     <button class="gross" id="los">▶ Los geht's!</button>
   </div>
   <div class="overlay" id="ende" hidden>
@@ -237,7 +237,7 @@ footer { margin-top: 18px; font-size: 12px; color: var(--ink2); }
   <button data-tempo="60" title="Normal: 1 Minute pro Sekunde" aria-label="Normal">🐹 <span class="txt">Normal</span></button>
   <button data-tempo="300" title="Schnell: 5 Minuten pro Sekunde" aria-label="Schnell">🐇 <span class="txt">Schnell</span></button>
   <span class="abst"></span>
-  <label title="Wenn Hamsti lange schläft, wird schnell vorgespult"><input type="checkbox" id="spulen" checked> 💤 <span class="txt">Schlafen vorspulen</span></label>
+  <label title="Wenn Mimi lange schläft, wird schnell vorgespult"><input type="checkbox" id="spulen" checked> 💤 <span class="txt">Schlafen vorspulen</span></label>
 </div>
 
 <div class="zeitleiste">
@@ -263,19 +263,19 @@ footer { margin-top: 18px; font-size: 12px; color: var(--ink2); }
 
 <section class="unten">
   <div class="karte">
-    <h2>📖 Hamstis Tagebuch</h2>
+    <h2>📖 Mimis Tagebuch</h2>
     <ul class="tagebuch" id="tagebuch"></ul>
   </div>
   <div class="karte">
     <h2>🔍 Was ist echt?</h2>
     <ul class="legende">
       <li><span class="tag echt">gemessen</span> <b>Rad, Buddeln und Trommeln</b> hat das Mikrofon am Terrarium wirklich gehört. Sie passieren hier genau in den richtigen 5 Minuten und so lange wie gemessen.</li>
-      <li><span class="tag still">still</span> <b>Schlafen</b>: Wenn lange nichts zu hören ist, kuschelt sich Hamsti ins Häuschen.</li>
-      <li><span class="tag ausgedacht">ausgedacht</span> <b>Fressen, Trinken, Putzen, Schnuppern</b> hört das Mikrofon nicht. Das denkt sich die Seite aus, damit Hamsti zwischendurch lebendig aussieht. Kurze Pausen zwischen zwei Rad-Stücken (bis 3 Minuten) läuft Hamsti hier gemütlich im Rad weiter.</li>
+      <li><span class="tag still">still</span> <b>Schlafen</b>: Wenn lange nichts zu hören ist, kuschelt sich Mimi ins Häuschen.</li>
+      <li><span class="tag ausgedacht">ausgedacht</span> <b>Fressen, Trinken, Putzen, Schnuppern</b> hört das Mikrofon nicht. Das denkt sich die Seite aus, damit Mimi zwischendurch lebendig aussieht. Kurze Pausen zwischen zwei Rad-Stücken (bis 3 Minuten) läuft Mimi hier gemütlich im Rad weiter.</li>
       <li><span class="tag fehlt">keine Daten</span> Da war das Mikrofon aus.</li>
     </ul>
-    <p class="klein">🌡️ Thermometer und Barometer an der Wand zeigen das echte Wetter draußen in Berlin (DWD-Station Tempelhof, Luftdruck wie im Wetterbericht auf Meereshöhe umgerechnet). Ist es kalt, kuschelt sich Hamsti unter die Decke.</p>
-    <p class="klein">Der Bericht zählt je 5 Minuten, wie viele Sekunden Hamsti im Rad war und gebuddelt hat. Wann genau in diesen 5 Minuten, wird zufällig (aber jedes Mal gleich) verteilt. Trommeln liegt auf die Sekunde genau. Mit 🔊 hörst du Hamsti: wie schnell das Rad klappert und wie viele Trommelschläge in welcher Zeit, ist gemessen. Tippe auf Hamsti! 💕</p>
+    <p class="klein">🌡️ Thermometer und Barometer an der Wand zeigen das echte Wetter draußen in Berlin (DWD-Station Tempelhof, Luftdruck wie im Wetterbericht auf Meereshöhe umgerechnet). Ist es kalt, kuschelt sich Mimi unter die Decke.</p>
+    <p class="klein">Der Bericht zählt je 5 Minuten, wie viele Sekunden Mimi im Rad war und gebuddelt hat. Wann genau in diesen 5 Minuten, wird zufällig (aber jedes Mal gleich) verteilt. Trommeln liegt auf die Sekunde genau. Mit 🔊 hörst du Mimi: wie schnell das Rad klappert und wie viele Trommelschläge in welcher Zeit, ist gemessen. Tippe auf Mimi! 💕</p>
   </div>
 </section>
 
@@ -412,7 +412,7 @@ function kennwerte(n) {
 }
 
 // ---------- Rekorde ----------
-const RAD_LUECKE = 180;   // Sekunden: so kurze Pausen zwischen zwei Rad-Stücken verbringt Hamsti im Rad
+const RAD_LUECKE = 180;   // Sekunden: so kurze Pausen zwischen zwei Rad-Stücken verbringt Mimi im Rad
 const MEGA_TROMMEL = 15;  // ab so vielen Schlägen in einer Salve: Rekord-Trommler
 const DRUCK_SPRUNG = 1.5; // hPa in 3 Stunden: deutliche Luftdruck-Änderung
 // wert: Zahl oder null (zählt dann nicht), tief: kleiner ist besser, zeit: wann in der Nacht er passiert,
@@ -606,8 +606,8 @@ function baue(n) {
   // Tagebuch – nur echte (gemessene) Dinge
   const ev = [];
   wach.forEach(([a, b], k) => {
-    ev.push({ t: Math.max(0, a), ico: k ? '👀' : '🌙', txt: k ? 'Hamsti ist wieder wach' : 'Hamsti ist aufgewacht und reckt sich' });
-    ev.push({ t: Math.min(1440, b), ico: '😴', txt: k === wach.length - 1 ? 'Hamsti geht schlafen. Guten Morgen, Welt!' : 'Hamsti macht ein Nickerchen' });
+    ev.push({ t: Math.max(0, a), ico: k ? '👀' : '🌙', txt: k ? 'Mimi ist wieder wach' : 'Mimi ist aufgewacht und reckt sich' });
+    ev.push({ t: Math.min(1440, b), ico: '😴', txt: k === wach.length - 1 ? 'Mimi geht schlafen. Guten Morgen, Welt!' : 'Mimi macht ein Nickerchen' });
   });
   const radS = stuecke.filter(p => p.typ === 'rad');
   // erster Sprung ins Rad: früher oder später als sonst?
@@ -664,9 +664,9 @@ function baue(n) {
   // Höhepunkte der Nacht
   const kw = kennwerte(n);
   const turbo = n.spitze && n.spitze.s ? { a: n.spitze.t, b: n.spitze.t + 5, s: n.spitze.s } : null;
-  if (turbo) ev.push({ t: turbo.a, ico: '🔥', txt: `Turbo-Hamsti! Die wildesten 5 Minuten der Nacht: ${turbo.s} s von 300 s im Rad` });
+  if (turbo) ev.push({ t: turbo.a, ico: '🔥', txt: `Turbo-Mimi! Die wildesten 5 Minuten der Nacht: ${turbo.s} s von 300 s im Rad` });
   const flitz = kw.schnell ? { a: kw.schnell.t, b: kw.schnell.t + 5, kmh: kw.schnell.kmh } : null;
-  if (flitz) ev.push({ t: flitz.a, ico: '⚡', txt: `So schnell war Hamsti heute Nacht sonst nie: ${komma(flitz.kmh, 1)} km/h` });
+  if (flitz) ev.push({ t: flitz.a, ico: '⚡', txt: `So schnell war Mimi heute Nacht sonst nie: ${komma(flitz.kmh, 1)} km/h` });
 
   // Neue Rekorde: besser als alle früheren Nächte
   // wann der laufende Zähler (wie in zaehlerBei) den alten Bestwert überholt
@@ -757,7 +757,7 @@ function ziel(seg) {
   }
 }
 
-// Hamsti bewegt sich in echter Zeit zum gerade gemessenen Ziel
+// Mimi bewegt sich in echter Zeit zum gerade gemessenen Ziel
 function steuern(dt, boost) {
   const z = ziel(segBei(simT));
   const st = ham.schritt;
@@ -849,7 +849,7 @@ function haltung() {
   return h;
 }
 
-// ---------- Hamsti zeichnen ----------
+// ---------- Mimi zeichnen ----------
 function ell(c, x, y, rx, ry, r = 0) { c.beginPath(); c.ellipse(x, y, Math.max(0.1, rx), Math.max(0.1, ry), r, 0, Math.PI * 2); }
 
 function zeichneHamster(c, h) {
@@ -860,7 +860,7 @@ function zeichneHamster(c, h) {
   const ph = ham.phase, bk = ham.backe;
   let g; // Gesicht
   if (h.pose === 'kugel') {
-    // bei Kälte draußen rollt sich Hamsti enger ein und zieht die Decke über
+    // bei Kälte draußen rollt sich Mimi enger ein und zieht die Decke über
     const k = kaelte(), b = 1 + Math.sin(jetzt * 2.2) * 0.04;
     E(-8, -4, 8, 4, '#f58fa5');
     E(0, -22 * b, 36 - 5 * k, (23 + 2 * k) * b, FELL);
@@ -1152,7 +1152,7 @@ function hausVorne(innenHamster) {
   // Schild
   c.fillStyle = '#fff4dc'; c.beginPath(); c.roundRect(x + w - 64, top + 18, 56, 20, 6); c.fill();
   c.fillStyle = '#b0603a'; c.font = 'bold 12px ui-rounded, "Segoe UI Rounded", system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.fillText('HAMSTI', x + w - 36, top + 29);
+  c.fillText('MIMI', x + w - 36, top + 29);
 }
 
 function zeichneFlasche() {
@@ -1244,7 +1244,7 @@ function aktualisiere(dt, h) {
   const laeuft = ham.ort === 'rad' && (ham.tun === 'rennen' || ham.tun === 'traben') && !ham.schritt;
   const zielOm = laeuft ? (seg.kmh || 2.9) / 3.6 / 0.12 : 0;
   rad.om += (zielOm - rad.om) * Math.min(1, dt * (laeuft ? 4 : 1.2));
-  // Hamsti läuft nach rechts, also schiebt er die Lauffläche unten nach links: Rad dreht im Uhrzeigersinn
+  // Mimi läuft nach rechts, also schiebt er die Lauffläche unten nach links: Rad dreht im Uhrzeigersinn
   rad.w += rad.om * dt;
   rad.wackel = Math.max(0, rad.wackel - dt);
   // Beine
@@ -1319,7 +1319,7 @@ function zeichne() {
   zeichneFlasche();
   zeichneNapf();
   radHinten();
-  if (h.ebene === 'rad' && imIntervall(plan.flitz)) { // Speed-Linien hinter Hamsti
+  if (h.ebene === 'rad' && imIntervall(plan.flitz)) { // Speed-Linien hinter Mimi
     ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 3; ctx.lineCap = 'round';
     for (let i = 0; i < 4; i++) {
       const y = h.y - 18 - i * 13, o = ((jetzt * 220 + i * 37) % 60);
@@ -1433,11 +1433,11 @@ function zeichneZeitleiste() {
 
 // ---------- Anzeige ----------
 const TEXTE = {
-  fressen: ['🌻 Hamsti knabbert Körner', 'ausgedacht'], trinken: ['💧 Hamsti trinkt', 'ausgedacht'],
-  putzen: ['🧼 Hamsti putzt sich', 'ausgedacht'], maennchen: ['👀 Hamsti macht Männchen', 'ausgedacht'],
-  schnuppern: ['👃 Hamsti schnuppert herum', 'ausgedacht'], gaehnen: ['🥱 Hamsti reckt und streckt sich', 'ausgedacht'],
-  pause: ['😮‍💨 Hamsti verschnauft kurz', 'ausgedacht'],
-  traben: ['🎡 Hamsti läuft gemütlich im Rad weiter', 'ausgedacht'],
+  fressen: ['🌻 Mimi knabbert Körner', 'ausgedacht'], trinken: ['💧 Mimi trinkt', 'ausgedacht'],
+  putzen: ['🧼 Mimi putzt sich', 'ausgedacht'], maennchen: ['👀 Mimi macht Männchen', 'ausgedacht'],
+  schnuppern: ['👃 Mimi schnuppert herum', 'ausgedacht'], gaehnen: ['🥱 Mimi reckt und streckt sich', 'ausgedacht'],
+  pause: ['😮‍💨 Mimi verschnauft kurz', 'ausgedacht'],
+  traben: ['🎡 Mimi läuft gemütlich im Rad weiter', 'ausgedacht'],
 };
 const TAGNAME = { echt: 'gemessen', still: 'still', ausgedacht: 'ausgedacht', fehlt: 'keine Daten' };
 let altStatus = '', altUhr = '', altEv = -1;
@@ -1459,16 +1459,16 @@ function ui(spult) {
   const seg = segBei(simT);
   let txt, tag;
   if (ham.trommel > 0 && ham.letzteTrommel) { const d = ham.letzteTrommel; txt = `🥁 Trommelwirbel! ${d.n} Schläge in ${komma(d.d, 1)} s`; tag = 'echt'; }
-  else if (seg.typ === 'rad' && imIntervall(plan.turbo)) { txt = '🔥 Turbo-Hamsti! Die wildesten 5 Minuten der Nacht'; tag = 'echt'; }
+  else if (seg.typ === 'rad' && imIntervall(plan.turbo)) { txt = '🔥 Turbo-Mimi! Die wildesten 5 Minuten der Nacht'; tag = 'echt'; }
   else if (seg.typ === 'rad' && imIntervall(plan.flitz)) { txt = `⚡ Schnellste 5 Minuten der Nacht · ${komma(plan.flitz.kmh, 1)} km/h`; tag = 'echt'; }
-  else if (seg.typ === 'rad') { txt = `🎡 Hamsti rennt im Rad · ${komma(seg.kmh, 1)} km/h`; tag = 'echt'; }
-  else if (seg.typ === 'buddeln') { txt = '🌱 Hamsti buddelt in der Einstreu'; tag = 'echt'; }
+  else if (seg.typ === 'rad') { txt = `🎡 Mimi rennt im Rad · ${komma(seg.kmh, 1)} km/h`; tag = 'echt'; }
+  else if (seg.typ === 'buddeln') { txt = '🌱 Mimi buddelt in der Einstreu'; tag = 'echt'; }
   else if (seg.typ === 'schlaf') {
-    txt = spult ? '😴 Hamsti schläft … wir spulen vor ⏩' : kaelte() > 0.3 ? `😴 Hamsti schläft eingekuschelt (draußen ${komma(wetterJetzt().temp, 0)} °C)` : '😴 Hamsti schläft im Häuschen';
+    txt = spult ? '😴 Mimi schläft … wir spulen vor ⏩' : kaelte() > 0.3 ? `😴 Mimi schläft eingekuschelt (draußen ${komma(wetterJetzt().temp, 0)} °C)` : '😴 Mimi schläft im Häuschen';
     tag = 'still';
   }
   else if (seg.typ === 'unbekannt') { txt = '🙉 Hier war das Mikro aus'; tag = 'fehlt'; }
-  else [txt, tag] = TEXTE[seg.tun] || ['🐹 Hamsti ist wach', 'ausgedacht'];
+  else [txt, tag] = TEXTE[seg.tun] || ['🐹 Mimi ist wach', 'ausgedacht'];
   const st = txt + '|' + tag;
   if (st !== altStatus) { $('#status').innerHTML = `${txt}<span class="tag ${tag}">${TAGNAME[tag]}</span>`; altStatus = st; }
 
@@ -1859,7 +1859,7 @@ function statNaechte(ziel, N) {
 
 // --- Auffällige Nächte (wo weicht eine Nacht deutlich vom Üblichen ab?) ---
 function statAuffaellig(ziel, K) {
-  const c = karte(ziel, '🔎 Auffällige Nächte', 'Nächte, die deutlich vom Üblichen abweichen. Läuft Hamsti mehrere Nächte hintereinander viel weniger, lohnt ein Blick ins Terrarium.');
+  const c = karte(ziel, '🔎 Auffällige Nächte', 'Nächte, die deutlich vom Üblichen abweichen. Läuft Mimi mehrere Nächte hintereinander viel weniger, lohnt ein Blick ins Terrarium.');
   c.k.querySelector('.knopf').remove();
   if (K.length < 5) { einsicht(c.dia, `Ab 5 Nächten wird hier verglichen (bisher ${K.length}).`); return; }
   const MERK = [
@@ -1912,7 +1912,7 @@ function viertel(n, t) {
   return da ? { r, w } : null;
 }
 function statHeatmap(ziel, N) {
-  const c = karte(ziel, '🗓️ Wann ist Hamsti aktiv?', 'Jede Zeile eine Nacht, jedes Kästchen 15 Minuten. Je dunkler, desto mehr Rad und Buddeln. Der Strich ist der Sonnenuntergang.');
+  const c = karte(ziel, '🗓️ Wann ist Mimi aktiv?', 'Jede Zeile eine Nacht, jedes Kästchen 15 Minuten. Je dunkler, desto mehr Rad und Buddeln. Der Strich ist der Sonnenuntergang.');
   const Z = [...N].reverse(), B = c.dia.clientWidth || 600, L = 52, R = 6, O = 4, U = 22;
   // Beginn 18:00, im Winter früher: eine volle Stunde vor dem frühesten Sonnenuntergang, damit der Strich im Raster bleibt
   const T0 = Math.min(540, Math.floor(Math.min(...Z.map(n => n.sonne.unter)) / 60) * 60), K = (1440 - T0) / 15, STD = K / 4;
@@ -1956,7 +1956,7 @@ function statHeatmap(ziel, N) {
 
 // --- Eine typische Nacht ---
 function statTypisch(ziel, K) {
-  const c = karte(ziel, '📈 Eine typische Nacht', 'Wie viele Minuten Hamsti im Schnitt pro Viertelstunde im Rad ist und buddelt (alle vollständigen Nächte).');
+  const c = karte(ziel, '📈 Eine typische Nacht', 'Wie viele Minuten Mimi im Schnitt pro Viertelstunde im Rad ist und buddelt (alle vollständigen Nächte).');
   const Kv = K.filter(n => !luecke(n)), quelle = Kv.length >= 3 ? Kv : K;
   const reihe = art => Array.from({ length: 60 }, (_, k) => {
     const w = quelle.map(n => viertel(n, 540 + k * 15)).filter(Boolean);
@@ -1997,7 +1997,7 @@ function statTypisch(ziel, K) {
   // wildeste Stunde
   let best = 0;
   for (let k = 0; k <= 56; k++) if (rad.slice(k, k + 4).reduce((a, v) => a + v, 0) > rad.slice(best, best + 4).reduce((a, v) => a + v, 0)) best = k;
-  einsicht(c.dia, `Am wildesten ist Hamsti meist zwischen ${uhr(540 + best * 15)} und ${uhr(600 + best * 15)} Uhr: im Schnitt ${komma(rad.slice(best, best + 4).reduce((a, v) => a + v, 0), 0)} Minuten Rad in dieser Stunde.`);
+  einsicht(c.dia, `Am wildesten ist Mimi meist zwischen ${uhr(540 + best * 15)} und ${uhr(600 + best * 15)} Uhr: im Schnitt ${komma(rad.slice(best, best + 4).reduce((a, v) => a + v, 0), 0)} Minuten Rad in dieser Stunde.`);
   tabelle(c.tab, ['Uhrzeit', 'Ø im Rad', 'Ø gebuddelt'], Array.from({ length: 15 }, (_, h) => [`${uhr(540 + h * 60)} bis ${uhr(600 + h * 60)}`,
     komma(rad.slice(h * 4, h * 4 + 4).reduce((a, v) => a + v, 0), 1) + ' min', komma(wue.slice(h * 4, h * 4 + 4).reduce((a, v) => a + v, 0), 1) + ' min']));
 }
@@ -2031,20 +2031,20 @@ function statStart(ziel, N) {
   const K = N.filter(n => n.komplett && n.sum.erstRad != null);
   if (K.length >= 3) {
     const ab = K.map(n => n.sum.erstRad - n.sonne.unter), m = mittelwert(ab);
-    einsicht(c.dia, `Im Schnitt springt Hamsti ${dauerMin(Math.abs(m))} ${m >= 0 ? 'nach' : 'vor'} Sonnenuntergang zum ersten Mal ins Rad (zwischen ${dauerMin(Math.min(...ab))} und ${dauerMin(Math.max(...ab))}).`);
+    einsicht(c.dia, `Im Schnitt springt Mimi ${dauerMin(Math.abs(m))} ${m >= 0 ? 'nach' : 'vor'} Sonnenuntergang zum ersten Mal ins Rad (zwischen ${dauerMin(Math.min(...ab))} und ${dauerMin(Math.max(...ab))}).`);
   }
   if (K.length >= 5) {
     const tage = K.map(n => (datumVon(n.datum) - datumVon(K[0].datum)) / 864e5);
     const ham = pearson(tage, K.map(n => n.sum.erstRad)).steigung, sonne = pearson(tage, K.map(n => n.sonne.unter)).steigung;
-    einsicht(c.dia, `Die Sonne geht gerade jeden Tag etwa ${komma(Math.abs(sonne), 1)} Minuten ${sonne < 0 ? 'früher' : 'später'} unter. Hamsti startet im Trend ${komma(Math.abs(ham), 1)} Minuten pro Nacht ${ham < 0 ? 'früher' : 'später'}${K.length < 20 ? ' (noch wenige Nächte, das kann Zufall sein)' : ''}.`);
+    einsicht(c.dia, `Die Sonne geht gerade jeden Tag etwa ${komma(Math.abs(sonne), 1)} Minuten ${sonne < 0 ? 'früher' : 'später'} unter. Mimi startet im Trend ${komma(Math.abs(ham), 1)} Minuten pro Nacht ${ham < 0 ? 'früher' : 'später'}${K.length < 20 ? ' (noch wenige Nächte, das kann Zufall sein)' : ''}.`);
   }
   tabelle(c.tab, ['Nacht', 'Sonnenuntergang', 'wach ab', 'erstes Mal im Rad', 'zuletzt aktiv'],
     N.map(n => [n.titel, uhr(n.sonne.unter), n.sum.erst == null ? '–' : uhr(n.sum.erst), n.sum.erstRad == null ? '–' : uhr(n.sum.erstRad), n.sum.letzt == null ? '–' : uhr(n.sum.letzt)]));
 }
 
-// --- Wetter und Hamsti im Verlauf: drei Streifen mit gemeinsamer Zeitachse ---
+// --- Wetter und Mimi im Verlauf: drei Streifen mit gemeinsamer Zeitachse ---
 function statWetterVerlauf(ziel, N) {
-  const c = karte(ziel, '🌦️ Wetter und Hamsti im Verlauf', 'Oben Hamstis Minuten im Rad pro Stunde, darunter Luftdruck und Temperatur draußen (DWD Berlin). Lavendel: Nacht.');
+  const c = karte(ziel, '🌦️ Wetter und Mimi im Verlauf', 'Oben Mimis Minuten im Rad pro Stunde, darunter Luftdruck und Temperatur draußen (DWD Berlin). Lavendel: Nacht.');
   const tag0 = datumVon(N[0].datum), tagVon = n => Math.round((datumVon(n.datum) - tag0) / 864e5);
   const ende = (tagVon(N[N.length - 1]) + 1) * 1440;
   const B = c.dia.clientWidth || 600, L = 48, R = 10, x = skala(0, ende, L, B - R);
@@ -2113,9 +2113,9 @@ function statWetterVerlauf(ziel, N) {
   }));
 }
 
-// --- Ist Hamsti wetterfühlig? Streudiagramme ---
+// --- Ist Mimi wetterfühlig? Streudiagramme ---
 function statWetterfuehlig(ziel, K) {
-  const c = karte(ziel, '🔬 Ist Hamsti wetterfühlig?', 'Jeder Punkt ist eine Nacht: wie weit Hamsti gerannt ist, gegen das Wetter draußen (18 bis 9 Uhr). Die graue Linie zeigt den Trend.');
+  const c = karte(ziel, '🔬 Ist Mimi wetterfühlig?', 'Jeder Punkt ist eine Nacht: wie weit Mimi gerannt ist, gegen das Wetter draußen (18 bis 9 Uhr). Die graue Linie zeigt den Trend.');
   const Kv = K.filter(n => !luecke(n));
   const box = dom('div', 'vielfach', c.dia);
   const TAFELN = [
@@ -2153,16 +2153,16 @@ function statWetterfuehlig(ziel, K) {
     ...TAFELN.map(T => T.x(n) == null ? '–' : T.fmt(T.x(n)))]));
 }
 
-// --- Hamsti-Kraftwerk: wie viel Strom hätte ein Dynamo am Rad erzeugt? (Gedankenspiel) ---
-// Der Dynamo bremst das Rad wie eine Steigung: Hamsti schiebt mit 20 % seines Gewichts, der Dynamo macht
+// --- Mimi-Kraftwerk: wie viel Strom hätte ein Dynamo am Rad erzeugt? (Gedankenspiel) ---
+// Der Dynamo bremst das Rad wie eine Steigung: Mimi schiebt mit 20 % seines Gewichts, der Dynamo macht
 // 60 % davon zu Strom. Energie = Kraft × Strecke, also reicht die gemessene Strecke.
 // Vergleich: Forenmessung an einem (größeren) Hamster ca. 0,15 W dauerhaft, 0,45 W Spitze.
 const KRAFTWERK = { masseKg: 0.04, last: 0.2, wirkungsgrad: 0.6, ledW: 0.04, handyWh: 15, centProKWh: 40 };
 const stromWh = km => KRAFTWERK.masseKg * 9.81 * KRAFTWERK.last * KRAFTWERK.wirkungsgrad * km * 1000 / 3600;
 const stromFmt = wh => wh < 1 ? komma(wh * 1000, wh < 0.01 ? 1 : 0) + ' mWh' : komma(wh, 2) + ' Wh';
 function statKraftwerk(ziel, K) {
-  const A = KRAFTWERK, c = karte(ziel, '⚡ Hamsti-Kraftwerk (Gedankenspiel)',
-    'Wie viel Strom hätte ein kleiner Dynamo am Laufrad erzeugt? Hamstis Rad hat keinen, das ist eine Schätzung aus der gemessenen Strecke.');
+  const A = KRAFTWERK, c = karte(ziel, '⚡ Mimi-Kraftwerk (Gedankenspiel)',
+    'Wie viel Strom hätte ein kleiner Dynamo am Laufrad erzeugt? Mimis Rad hat keinen, das ist eine Schätzung aus der gemessenen Strecke.');
   const proNacht = K.map(n => stromWh(n.sum.km)), summe = proNacht.reduce((a, v) => a + v, 0), schnitt = summe / (K.length || 1);
   const watt = A.masseKg * 9.81 * A.last * A.wirkungsgrad * (2.9 / 3.6);
   const box = dom('section', 'zaehler', c.steuer);
@@ -2181,7 +2181,7 @@ function statKraftwerk(ziel, K) {
   dom('p', 'klein', c.dia, 'Säulen in mWh (Milliwattstunden) pro Nacht.');
   if (best) einsicht(c.dia, `Beim Rennen mit 2,9 km/h liefert der Dynamo etwa ${komma(watt * 1000, 0)} mW, genug für eine kleine LED. In der besten Nacht (${best.titel}) wären es ${stromFmt(stromWh(best.sum.km))} gewesen: Die LED hätte ${dauerMin(stromWh(best.sum.km) / A.ledW * 60)} geleuchtet.`);
   const ann = dom('p', 'klein', c.fuss);
-  ann.append(`Annahmen: Zwerghamster mit ${komma(A.masseKg * 1000, 0)} g, der Dynamo bremst wie ${Math.round(A.last * 100)} % Steigung, ${Math.round(A.wirkungsgrad * 100)} % davon werden Strom, also ${komma(stromWh(1) * 1000, 0)} mWh pro km. Strompreis ${A.centProKWh} ct/kWh, Handy-Akku ${A.handyWh} Wh. Mit echtem Dynamo wäre das Rad schwerer, Hamsti würde wohl weniger rennen. Zum Vergleich: Bastler haben an Hamsterrädern um 0,15 W dauerhaft und 0,45 W Spitze gemessen (`);
+  ann.append(`Annahmen: Zwerghamster mit ${komma(A.masseKg * 1000, 0)} g, der Dynamo bremst wie ${Math.round(A.last * 100)} % Steigung, ${Math.round(A.wirkungsgrad * 100)} % davon werden Strom, also ${komma(stromWh(1) * 1000, 0)} mWh pro km. Strompreis ${A.centProKWh} ct/kWh, Handy-Akku ${A.handyWh} Wh. Mit echtem Dynamo wäre das Rad schwerer, Mimi würde wohl weniger rennen. Zum Vergleich: Bastler haben an Hamsterrädern um 0,15 W dauerhaft und 0,45 W Spitze gemessen (`);
   const link = dom('a', null, ann, 'Forum');
   link.href = 'https://forums.anandtech.com/threads/hamster-wheel-power-generator.2135926/'; link.rel = 'noopener'; link.target = '_blank';
   ann.append('), vermutlich mit größeren Hamstern.');
@@ -2192,14 +2192,14 @@ function statKraftwerk(ziel, K) {
 function statTrommelnTempo(ziel, K) {
   const box = dom('div', 'vielfach', ziel);
   const c1 = karte(box, '🥁 Wann wird getrommelt?', 'Alle Trommel-Salven, nach Uhrzeit.');
-  const c2 = karte(box, '⚡ Wie schnell läuft Hamsti?', 'Tempo in jedem 5-Minuten-Stück im Rad (geschätzt aus der Schrittfrequenz).');
+  const c2 = karte(box, '⚡ Wie schnell läuft Mimi?', 'Tempo in jedem 5-Minuten-Stück im Rad (geschätzt aus der Schrittfrequenz).');
   const proStunde = Array(15).fill(0), schlaege = [];
   for (const n of K) for (const d of n.trommeln) { const h = Math.floor((d.t - 540) / 60); if (h >= 0 && h < 15) proStunde[h]++; schlaege.push(d.n); }
   saeulen(c1.dia, { farbe: FARBE.trommel, achse: v => String(Math.round(v)), hoehe: 200, labelAbstand: 40,
     daten: proStunde.map((v, h) => ({ label: uhr(540 + h * 60).slice(0, 2), v, tip: [`${uhr(540 + h * 60)} bis ${uhr(600 + h * 60)}`, [[v + ' Salven', 'in allen Nächten', FARBE.trommel]]] })) });
   if (schlaege.length) {
     const h = proStunde.indexOf(Math.max(...proStunde));
-    einsicht(c1.dia, `Am liebsten trommelt Hamsti zwischen ${uhr(540 + h * 60)} und ${uhr(600 + h * 60)} Uhr. Im Schnitt ${komma(mittelwert(schlaege), 1)} Schläge pro Salve, die größte hatte ${Math.max(...schlaege)}.`);
+    einsicht(c1.dia, `Am liebsten trommelt Mimi zwischen ${uhr(540 + h * 60)} und ${uhr(600 + h * 60)} Uhr. Im Schnitt ${komma(mittelwert(schlaege), 1)} Schläge pro Salve, die größte hatte ${Math.max(...schlaege)}.`);
   }
   tabelle(c1.tab, ['Uhrzeit', 'Salven'], proStunde.map((v, h) => [`${uhr(540 + h * 60)} bis ${uhr(600 + h * 60)}`, String(v)]));
 
@@ -2211,7 +2211,7 @@ function statTrommelnTempo(ziel, K) {
   saeulen(c2.dia, { farbe: FARBE.rad, achse: v => String(Math.round(v)), hoehe: 200, labelAbstand: 40,
     daten: fach.map((v, i) => ({ label: komma((lo + i) / 10, 1), v, tip: [`${komma((lo + i) / 10, 1)} bis ${komma((lo + i + 1) / 10, 1)} km/h`, [[v + '×', '5-Minuten-Stücke', FARBE.rad]]] })) });
   const s = [...tempi].sort((a, b) => a - b), q = f => s[Math.floor(f * (s.length - 1))];
-  einsicht(c2.dia, `Meist läuft Hamsti zwischen ${komma(q(0.25), 2)} und ${komma(q(0.75), 2)} km/h (die Hälfte aller Stücke), am schnellsten ${komma(s[s.length - 1], 1)} km/h.`);
+  einsicht(c2.dia, `Meist läuft Mimi zwischen ${komma(q(0.25), 2)} und ${komma(q(0.75), 2)} km/h (die Hälfte aller Stücke), am schnellsten ${komma(s[s.length - 1], 1)} km/h.`);
   tabelle(c2.tab, ['km/h', 'Anzahl'], fach.map((v, i) => [`${komma((lo + i) / 10, 1)} bis ${komma((lo + i + 1) / 10, 1)}`, String(v)]));
 }
 
@@ -2312,7 +2312,7 @@ function spiele(an) {
 function zeigeEnde() {
   const km = plan.ges.m / 1000, felder = Math.round(plan.ges.m / 105);
   const rk = plan.rekorde.length ? `<br>🏆 ${plan.rekorde.length === 1 ? 'Neuer Rekord' : plan.rekorde.length + ' neue Rekorde'}: ${plan.rekorde.map(r => r.r.titel).join(', ')}` : '';
-  $('#endtext').innerHTML = `🌞 Guten Morgen! Hamsti ist heute Nacht ${komma(km, 1)} km gerannt.<br>Das sind ungefähr ${felder} Fußballfelder! ⚽${rk}`;
+  $('#endtext').innerHTML = `🌞 Guten Morgen! Mimi ist heute Nacht ${komma(km, 1)} km gerannt.<br>Das sind ungefähr ${felder} Fußballfelder! ⚽${rk}`;
   if (plan.rekorde.length) konfetti();
   $('#ende').hidden = false;
   SND.morgen();
@@ -2332,7 +2332,7 @@ function waehle(n) {
   setze('g-rad', `ganze Nacht ${K['im Rad'] || ''}`);
   setze('g-wue', `ganze Nacht ${K['Wühlen'] || ''}`);
   setze('g-tr', `ganze Nacht ${K['Trommel-Salven'] || ''}`);
-  $('#starttext').innerHTML = `Was hat Hamsti in der Nacht vom ${n.titel} gemacht?<br><small>wach ab ${K['aktiv ab']}, ${K['Läufe']} Läufe im Rad</small>`;
+  $('#starttext').innerHTML = `Was hat Mimi in der Nacht vom ${n.titel} gemacht?<br><small>wach ab ${K['aktiv ab']}, ${K['Läufe']} Läufe im Rad</small>`;
   altEv = -1; altStatus = '';
   spielt = false; $('#start').hidden = false; $('#ende').hidden = true;
   springe(plan.t0);
