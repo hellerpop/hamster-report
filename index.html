@@ -1775,13 +1775,23 @@ function saeule(g, x, y, w, h, farbe) {
   return sv('path', { d: `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`, fill: farbe, class: 'marke' }, g);
 }
 // Säulendiagramm: daten = [{ label, v, wert, tip: [kopf, zeilen], klick, blass }]
-function saeulen(dia, { daten, farbe, achse, hoehe = 220, mittel, beschrifte = [], labelAbstand = 44 }) {
+// zoom: Achse nur über den Bereich der Werte (nicht ab 0), dann Punkte statt Säulen,
+// weil abgeschnittene Säulen falsche Verhältnisse zeigen würden (z. B. Tempo, schwankt nur um Zehntel)
+function saeulen(dia, { daten, farbe, achse, hoehe = 220, mittel, beschrifte = [], labelAbstand = 44, zoom = false }) {
   const B = dia.clientWidth || 600, H = hoehe, L = 42, R = 10, O = 22, U = 24;
-  const max = Math.max(0, ...daten.map(d => d.v || 0)) || 1, yMax = max * 1.15;
-  const y = skala(0, yMax, H - U, O), band = (B - L - R) / daten.length, bw = Math.min(24, Math.max(1, band - 2));
+  const vs = daten.map(d => d.v).filter(v => v != null);
+  const max = Math.max(0, ...vs) || 1;
+  let yMin = 0, yMax = max * 1.15;
+  if (zoom && vs.length) {
+    const lo = Math.min(...vs, mittel ?? Infinity), hi = Math.max(...vs, mittel ?? -Infinity);
+    const rand = Math.max((hi - lo) * 0.12, 0.05);
+    yMin = Math.max(0, lo - rand); yMax = hi + rand;
+  }
+  const y = skala(yMin, yMax, H - U, O), band = (B - L - R) / daten.length, bw = Math.min(24, Math.max(1, band - 2));
   const svg = sv('svg', { viewBox: `0 0 ${B} ${H}` });
-  for (const v of ticks(0, yMax)) {
-    sv('line', { x1: L, x2: B - R, y1: y(v), y2: y(v), class: v ? 'gitter' : 'achse' }, svg);
+  if (zoom) sv('line', { x1: L, x2: B - R, y1: H - U, y2: H - U, class: 'achse' }, svg);
+  for (const v of ticks(yMin, yMax)) {
+    sv('line', { x1: L, x2: B - R, y1: y(v), y2: y(v), class: v && !(zoom && v === yMin) ? 'gitter' : 'achse' }, svg);
     svText(svg, L - 6, y(v) + 4, achse(v), { 'text-anchor': 'end' });
   }
   const jede = Math.max(1, Math.ceil(labelAbstand / band));
@@ -1791,15 +1801,21 @@ function saeulen(dia, { daten, farbe, achse, hoehe = 220, mittel, beschrifte = [
     if (d.v == null) return;
     const g = sv('g', {}, svg);
     sv('rect', { x: x0, y: O, width: band, height: H - U - O, fill: 'transparent', class: 'treffer' }, g);
-    const h = y(0) - y(d.v);
-    if (h > 0) saeule(g, x0 + (band - bw) / 2, y(d.v), bw, h, farbe).style.opacity = d.blass ? 0.45 : 1;
+    if (zoom) {
+      sv('circle', { cx: x0 + band / 2, cy: y(d.v), r: clamp(bw / 2, 2.5, 5), fill: farbe, class: 'marke' }, g).style.opacity = d.blass ? 0.45 : 1;
+    } else {
+      const h = y(0) - y(d.v);
+      if (h > 0) saeule(g, x0 + (band - bw) / 2, y(d.v), bw, h, farbe).style.opacity = d.blass ? 0.45 : 1;
+    }
     if (d.tip) { mitTip(g, () => d.tip); g.setAttribute('aria-label', d.tip[0] + ': ' + d.tip[1].map(z => z[0] + ' ' + (z[1] || '')).join(', ')); }
     if (d.klick) klickbar(g, d.klick);
     if (beschrifte.includes(i) && band >= 20) svText(svg, x0 + band / 2, y(d.v) - 6, d.wert, { 'text-anchor': 'middle', class: 'stark' });
   });
   if (mittel != null) {
-    sv('line', { x1: L, x2: B - R, y1: y(mittel), y2: y(mittel), stroke: '#8a6a58', 'stroke-opacity': 0.6, 'stroke-width': 1 }, svg);
-    svText(svg, B - R, y(mittel) - 5, 'Ø ' + achse(mittel), { 'text-anchor': 'end', class: 'stark' });
+    sv('line', { x1: L, x2: B - R, y1: y(mittel), y2: y(mittel), stroke: '#8a6a58', 'stroke-opacity': 0.6, 'stroke-width': 1, ...(zoom ? { 'stroke-dasharray': '4 4' } : {}) }, svg);
+    // im Zoom links beschriften, rechts steht schon der Wert der letzten Nacht
+    if (zoom) svText(svg, L + 6, y(mittel) - 5, 'Ø ' + komma(mittel, 2), { 'text-anchor': 'start', class: 'stark' });
+    else svText(svg, B - R, y(mittel) - 5, 'Ø ' + achse(mittel), { 'text-anchor': 'end', class: 'stark' });
   }
   dia.replaceChildren(svg);
 }
@@ -1825,7 +1841,7 @@ const MASSE = [
   { id: 'wue', name: 'Buddeln', farbe: FARBE.wue, wert: n => n.sum.wueMin, fmt: dauerMin, achse: v => Math.round(v) + ' min' },
   { id: 'laeufe', name: 'Läufe', farbe: FARBE.rad, wert: n => n.sum.laeufe, fmt: v => v + ' Läufe', achse: v => String(Math.round(v)) },
   { id: 'salven', name: 'Trommel-Salven', farbe: FARBE.trommel, wert: n => n.sum.salven, fmt: v => v + ' Salven', achse: v => String(Math.round(v)) },
-  { id: 'tempo', name: 'Tempo', farbe: FARBE.rad, wert: n => n.sum.tempo, fmt: v => komma(v, 2) + ' km/h', achse: zahl },
+  { id: 'tempo', name: 'Tempo', farbe: FARBE.rad, wert: n => n.sum.tempo, fmt: v => komma(v, 2) + ' km/h', achse: v => komma(v, 2).replace(/0$/, ''), zoom: true },
 ];
 let massWahl = 'km';
 function statNaechte(ziel, N) {
@@ -1835,7 +1851,7 @@ function statNaechte(ziel, N) {
     const m = MASSE.find(x => x.id === massWahl), K = N.filter(n => n.komplett);
     const werte = N.map(n => m.wert(n)), maxI = werte.indexOf(Math.max(...werte.filter(v => v != null)));
     saeulen(c.dia, {
-      farbe: m.farbe, achse: m.achse, beschrifte: [maxI, N.length - 1],
+      farbe: m.farbe, achse: m.achse, beschrifte: [maxI, N.length - 1], zoom: !!m.zoom,
       mittel: K.length ? mittelwert(K.map(m.wert).filter(v => v != null)) : null,
       daten: N.map(n => {
         const v = m.wert(n);
@@ -1845,7 +1861,8 @@ function statNaechte(ziel, N) {
       }),
     });
     c.fuss.replaceChildren();
-    if (N.some(luecke)) dom('p', 'klein', c.fuss, 'Blasse Säulen: Da war das Mikro zeitweise aus (weniger als 90 % der Nacht aufgezeichnet), die Werte sind zu niedrig.');
+    if (m.zoom) dom('p', 'klein', c.fuss, 'Die Achse beginnt nicht bei 0: Das Tempo schwankt nur um wenige Zehntel km/h, so sieht man die Unterschiede.');
+    if (N.some(luecke)) dom('p', 'klein', c.fuss, m.zoom ? 'Blasse Punkte: Da war das Mikro zeitweise aus (weniger als 90 % der Nacht aufgezeichnet).' : 'Blasse Säulen: Da war das Mikro zeitweise aus (weniger als 90 % der Nacht aufgezeichnet), die Werte sind zu niedrig.');
     c.tab.replaceChildren();
     tabelle(c.tab, ['Nacht', ...MASSE.map(x => x.name)], N.map(n => [n.titel, ...MASSE.map(x => x.wert(n) == null ? '–' : x.fmt(x.wert(n)))]));
   };
