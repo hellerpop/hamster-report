@@ -707,7 +707,7 @@ const RAD = { x: 772, y: 316, r: 120, lauf: 109 };
 const RAD_EIN = 640, BUDDEL_X = 336, HUEGEL_X = 382, NAPF_X = 496, FRESS_X = 444, FLASCHE_X = 586, TRINK_X = 559;
 const HS = 1.15; // Hamstergröße
 const FENSTER = { x: 96, y: 20, w: 232, h: 116 };
-const FELL = '#f7b267', FELL_D = '#e38f4a', BAUCH = '#fff3df', ROSA = '#ff9db3', LINIE = '#6b4226';
+const FELL = '#fbf4ec', FELL_D = '#d9c5b5', BAUCH = '#ffffff', STREIF = '#a08571', ROSA = '#ff9db3', LINIE = '#6b4226';
 
 const cv = $('#szene'), ctx = cv.getContext('2d');
 const zl = $('#zl'), zctx = zl.getContext('2d');
@@ -855,6 +855,8 @@ function ell(c, x, y, rx, ry, r = 0) { c.beginPath(); c.ellipse(x, y, Math.max(0
 function zeichneHamster(c, h) {
   const S = [];
   const E = (x, y, rx, ry, f, r = 0, o = true) => S.push({ x, y, rx, ry, f, r, o });
+  // Rückenstrich: Bogen auf einer Ellipse (Canvas-Winkel, 1.5π = oben)
+  const A = (x, y, rx, ry, a1, a2, w) => S.push({ bogen: true, x, y, rx, ry, a1, a2, w, o: false });
   const ph = ham.phase, bk = ham.backe;
   let g; // Gesicht
   if (h.pose === 'kugel') {
@@ -862,10 +864,12 @@ function zeichneHamster(c, h) {
     const k = kaelte(), b = 1 + Math.sin(jetzt * 2.2) * 0.04;
     E(-8, -4, 8, 4, '#f58fa5');
     E(0, -22 * b, 36 - 5 * k, (23 + 2 * k) * b, FELL);
+    A(0, -22 * b, 31 - 5 * k, (19 + 2 * k) * b, 1.1 * Math.PI, 1.75 * Math.PI, 5);
     E(-6, -10, 22, 9, BAUCH, 0, false);
     if (k > 0.3) E(-10 + 2 * k, -24 * b, 28, 19 * b, '#a7c7ff', -0.15);
     E(14, -41 * b, 7.5, 8, FELL_D, -0.3);
     E(22, -20 * b, 18, 16, FELL);
+    A(22, -20 * b, 13, 12, 1.3 * Math.PI, 1.52 * Math.PI, 4);
     if (bk > 0.05) E(27, -12 * b, 5 + 8 * bk, 4 + 6 * bk, FELL);
     E(24, -40 * b, 8, 8.5, FELL, 0.3);
     E(24, -40 * b, 4, 4.5, ROSA, 0.3, false);
@@ -876,9 +880,11 @@ function zeichneHamster(c, h) {
     E(-8, -4, 10, 5, '#f58fa5'); E(14, -4, 11, 5, ROSA);
     E(-26, -10, 6, 5, FELL);
     E(0, -33 - (s - 1) * 14, 27, 32 + (s - 1) * 26, FELL);
+    A(0, -33 - (s - 1) * 14, 23, 28 + (s - 1) * 26, 0.8 * Math.PI, 1.4 * Math.PI, 5);
     E(8, -30 - (s - 1) * 12, 17, 23 + (s - 1) * 18, BAUCH, 0, false);
     E(-4, hy - 19, 7, 8, FELL_D, -0.35);
     E(6, hy, 21, 20, FELL);
+    A(6, hy, 17, 16, 0.85 * Math.PI, 1.42 * Math.PI, 4);
     if (bk > 0.05) E(12, hy + 10, 6 + 9 * bk, 5 + 7 * bk, FELL);
     E(10, hy - 20, 8, 9, FELL, 0.25);
     E(10, hy - 20, 4, 5, ROSA, 0.25, false);
@@ -903,9 +909,11 @@ function zeichneHamster(c, h) {
     fuss(-18, Math.PI, true); fuss(18, 0, true);
     E(-38, -24 + by, 7, 6, FELL);
     E(0, -27 + by, 38, 25, FELL);
+    A(0, -27 + by, 34, 21, 1.15 * Math.PI, 1.6 * Math.PI, 5);
     E(6, -17 + by, 26, 12, BAUCH, 0, false);
     E(15, -55 + by, 7.5, 8.5, FELL_D, -0.3);
     E(27, -35 + by, 22, 21, FELL);
+    A(27, -35 + by, 18, 17, 1.2 * Math.PI, 1.55 * Math.PI, 4);
     if (bk > 0.05) E(31, -22 + by, 6 + 9 * bk, 5 + 7 * bk, FELL);
     E(29, -56 + by, 8.5, 9.5, FELL, 0.25);
     E(29, -56 + by, 4.5, 5.5, ROSA, 0.25, false);
@@ -921,7 +929,14 @@ function zeichneHamster(c, h) {
   // Umriss, dann Flächen
   c.lineWidth = 5; c.strokeStyle = LINIE; c.lineJoin = 'round';
   for (const s of S) if (s.o) { ell(c, s.x, s.y, s.rx, s.ry, s.r); c.stroke(); }
-  for (const s of S) { ell(c, s.x, s.y, s.rx, s.ry, s.r); c.fillStyle = s.f; c.fill(); }
+  for (const s of S) {
+    if (s.bogen) {
+      c.beginPath(); c.ellipse(s.x, s.y, s.rx, s.ry, 0, s.a1, s.a2);
+      c.strokeStyle = STREIF; c.lineWidth = s.w; c.lineCap = 'round'; c.stroke();
+      continue;
+    }
+    ell(c, s.x, s.y, s.rx, s.ry, s.r); c.fillStyle = s.f; c.fill();
+  }
   // Gesicht
   c.fillStyle = 'rgba(255,110,140,.45)'; ell(c, g.wx, g.wy, 6.5, 3.8); c.fill();
   const zu = g.schlaf || ham.blink > 0 || g.gaehn;
