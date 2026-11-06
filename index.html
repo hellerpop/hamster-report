@@ -1899,24 +1899,27 @@ function viertel(n, t) {
 function statHeatmap(ziel, N) {
   const c = karte(ziel, '🗓️ Wann ist Hamsti aktiv?', 'Jede Zeile eine Nacht, jedes Kästchen 15 Minuten. Je dunkler, desto mehr Rad und Buddeln. Der Strich ist der Sonnenuntergang.');
   const Z = [...N].reverse(), B = c.dia.clientWidth || 600, L = 52, R = 6, O = 4, U = 22;
-  const zh = clamp(Math.floor(360 / Z.length), 9, 22), cw = (B - L - R) / 60, H = O + Z.length * zh + U;
+  // Beginn 18:00, im Winter früher: eine volle Stunde vor dem frühesten Sonnenuntergang, damit der Strich im Raster bleibt
+  const T0 = Math.min(540, Math.floor(Math.min(...Z.map(n => n.sonne.unter)) / 60) * 60), K = (1440 - T0) / 15, STD = K / 4;
+  const zh = clamp(Math.floor(360 / Z.length), 9, 22), cw = (B - L - R) / K, H = O + Z.length * zh + U;
   const svg = sv('svg', { viewBox: `0 0 ${B} ${H}` }), jede = Math.ceil(14 / zh);
   Z.forEach((n, j) => {
     const y = O + j * zh;
     if (j % jede === 0) svText(svg, L - 6, y + zh / 2 + 4, n.titel, { 'text-anchor': 'end' });
-    for (let k = 0; k < 60; k++) {
-      const v = viertel(n, 540 + k * 15);
+    for (let k = 0; k < K; k++) {
+      const v = viertel(n, T0 + k * 15);
       sv('rect', { x: L + k * cw, y, width: Math.max(0.5, cw - 1), height: zh - 2, rx: Math.min(2, cw / 3), fill: v ? rampe(Math.pow((v.r + v.w) / 900, 0.7)) : '#e6e1dd' }, svg);
     }
-    const xs = L + (n.sonne.unter - 540) / 15 * cw;
+    const xs = L + (n.sonne.unter - T0) / 15 * cw;
     sv('line', { x1: xs, x2: xs, y1: y - 1, y2: y + zh - 1, stroke: '#4a3428', 'stroke-width': 2, 'stroke-linecap': 'round' }, svg);
   });
-  for (let h = 0; h <= 15; h += 3) svText(svg, L + h * 4 * cw, H - 6, uhr(540 + h * 60), { 'text-anchor': h === 0 ? 'start' : h === 15 ? 'end' : 'middle' });
+  // Achse: alle drei Stunden zur vollen Uhrzeit (18, 21, 00 …), bis 09:00 am rechten Rand
+  for (let h = STD % 3; h <= STD; h += 3) svText(svg, L + h * 4 * cw, H - 6, uhr(T0 + h * 60), { 'text-anchor': h === 0 ? 'start' : h === STD ? 'end' : 'middle' });
   const flaeche = sv('rect', { x: L, y: O, width: B - L - R, height: Z.length * zh, fill: 'transparent' }, svg);
   const zelle = e => {
     const b = svg.getBoundingClientRect(), s = B / b.width, x = (e.clientX - b.left) * s, y = (e.clientY - b.top) * s;
     const j = Math.floor((y - O) / zh), k = Math.floor((x - L) / cw);
-    return j >= 0 && j < Z.length && k >= 0 && k < 60 ? { n: Z[j], t: 540 + k * 15 } : null;
+    return j >= 0 && j < Z.length && k >= 0 && k < K ? { n: Z[j], t: T0 + k * 15 } : null;
   };
   mitTip(flaeche, e => {
     const z = e.clientX != null && zelle(e); if (!z) return null;
@@ -1932,8 +1935,8 @@ function statHeatmap(ziel, N) {
   grad.style.cssText = `display:inline-block;width:120px;height:10px;border-radius:3px;vertical-align:-1px;background:linear-gradient(90deg,${RAMPE.join(',')})`;
   sk.insertBefore(document.createTextNode('0 '), grad); sk.appendChild(document.createTextNode(' 15 min aktiv'));
   legende(c.dia, [['', '#e6e1dd', 'Mikro aus'], ['linie', '#4a3428', 'Sonnenuntergang']]);
-  tabelle(c.tab, ['Nacht', ...Array.from({ length: 15 }, (_, h) => uhr(540 + h * 60).slice(0, 2) + ' h')], Z.map(n => [n.titel,
-    ...Array.from({ length: 15 }, (_, h) => { let s = 0, da = false; for (let q = 0; q < 4; q++) { const v = viertel(n, 540 + h * 60 + q * 15); if (v) { da = true; s += v.r + v.w; } } return da ? Math.round(s / 60) + ' min' : '–'; })]));
+  tabelle(c.tab, ['Nacht', ...Array.from({ length: STD }, (_, h) => uhr(T0 + h * 60).slice(0, 2) + ' h')], Z.map(n => [n.titel,
+    ...Array.from({ length: STD }, (_, h) => { let s = 0, da = false; for (let q = 0; q < 4; q++) { const v = viertel(n, T0 + h * 60 + q * 15); if (v) { da = true; s += v.r + v.w; } } return da ? Math.round(s / 60) + ' min' : '–'; })]));
 }
 
 // --- Eine typische Nacht ---
